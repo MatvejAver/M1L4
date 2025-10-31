@@ -47,6 +47,15 @@ def info(message):
     else:
         bot.reply_to(message, "Ты ещё не создал себе покемона") 
 
+@bot.message_handler(commands=['feed'])
+def feed_pok(message):
+    if message.from_user.username in Pokemon.pokemons.keys():  
+        pok = Pokemon.pokemons[message.from_user.username]
+        res = pok.feed()
+        bot.send_message(message.chat.id, res)
+
+    else:
+        bot.send_message(message.chat.id, 'У вас нет покемона')
 
 bot.infinity_polling(none_stop=True)
 
